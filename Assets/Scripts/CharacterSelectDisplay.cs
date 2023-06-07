@@ -7,6 +7,9 @@ using System;
 
 public class CharacterSelectDisplay : NetworkBehaviour
 {
+    [SerializeField] private GameObject characterInfoPanel;
+
+    [SerializeField] private TMP_Text characterNameText;
 
     private NetworkList<CharacterSelectState> players;
 
@@ -51,6 +54,29 @@ public class CharacterSelectDisplay : NetworkBehaviour
             {
                 players.RemoveAt(i);
                 break;
+            }
+        }
+    }
+    public void Select(Character character)
+    {
+        characterNameText.text = character.DisplayName;
+
+        characterInfoPanel.SetActive(true);
+
+        SelectServerRpc(character.Id);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SelectServerRpc(int characterId, ServerRpcParams serverRpcParams = default)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if(players[i].ClientId == serverRpcParams.Receive.SenderClientId)
+            {
+                players[i] = new CharacterSelectState(
+                    players[i].ClientId,
+                    characterId
+                    );
             }
         }
     }
