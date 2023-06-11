@@ -7,6 +7,10 @@ using System;
 
 public class CharacterSelectDisplay : NetworkBehaviour
 {
+    [SerializeField] private CharacterDatabase characterDatabase;
+    [SerializeField] private Transform charactersHolder;
+    [SerializeField] private CharacterSelectButton selectButtonPrefab;
+    [SerializeField] private PlayerCard[] playerCards;
     [SerializeField] private GameObject characterInfoPanel;
 
     [SerializeField] private TMP_Text characterNameText;
@@ -18,7 +22,19 @@ public class CharacterSelectDisplay : NetworkBehaviour
         players = new NetworkList<CharacterSelectState>();
     }
     public override void OnNetworkSpawn()
-    {
+    {   
+        if(IsClient)
+        {
+            Character[] allCharacters = characterDatabase.GetAllCharacters();
+
+            foreach (var character in allCharacters)
+            {
+                var selectbuttonInstance = Instantiate(selectButtonPrefab, charactersHolder);
+                selectbuttonInstance.SetCharacter(this, character);
+            }
+            players.OnListChanged += HandlePlayersStateChanged;
+        }
+
         if(IsServer)
         {
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
@@ -34,7 +50,12 @@ public class CharacterSelectDisplay : NetworkBehaviour
 
 
     public override void OnNetworkDespawn()
-    {
+    {   
+        if(IsClient)
+        {
+            players.OnListChanged -= HandlePlayersStateChanged;
+        }
+
         if(IsServer)
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
@@ -77,6 +98,20 @@ public class CharacterSelectDisplay : NetworkBehaviour
                     players[i].ClientId,
                     characterId
                     );
+            }
+        }
+    }
+    private void HandlePlayersStateChanged(NetworkListEvent<CharacterSelectState> changeEvent)
+    {
+        for (int i = 0; i < playerCards.Length; i++)
+        {
+            if(players.Count >i)
+            {
+                playerCards[i].UpdateDisplay(players[i]);
+            }
+            else
+            {
+                playerCards[i].DisableDisplay();
             }
         }
     }

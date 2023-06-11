@@ -9,7 +9,7 @@ public class MainMenuDisplay : MonoBehaviour
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene(gameplaySceneName, LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene(gameplaySceneName, LoadSceneMode.Single); 
     }
     public void StartServer()
     {
