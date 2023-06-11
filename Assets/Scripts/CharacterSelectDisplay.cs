@@ -105,7 +105,7 @@ public class CharacterSelectDisplay : NetworkBehaviour
     {
         for (int i = 0; i < playerCards.Length; i++)
         {
-            if(players.Count >i)
+            if (players.Count > i)
             {
                 playerCards[i].UpdateDisplay(players[i]);
             }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Character_Pickaxe
   m_EditorClassIdentifier: 
   id: 1
-  displayName: Pickaxe
+  displayName: "P\u0131ckaxe"
   icon: {fileID: 21300000, guid: 3d40f02cb7635fd40893ec06b3c88975, type: 3}
