@@ -7,10 +7,15 @@ using UnityEngine.UI;
 public class PlayerCard : MonoBehaviour
 {
     [SerializeField] private CharacterDatabase characterDatabase;
+
     [SerializeField] private GameObject visuals;
+
     [SerializeField] private Image characterIconImage;
+
     [SerializeField] private TMP_Text playerNameText;
+
     [SerializeField] private TMP_Text characterNameText;
+
 
     public void UpdateDisplay(CharacterSelectState state)
     {
@@ -27,11 +32,12 @@ public class PlayerCard : MonoBehaviour
         }
 
         playerNameText.text = state.IsLockedIn ? $"Player {state.ClientId}" : 
-            $"Player {state.ClientId} (Picking...)" ;
+        $"Player {state.ClientId} (Picking...)" ;
         visuals.SetActive(true);
-
-        
+  
     }
+
+
     public void DisableDisplay()
     {
         visuals.SetActive(false);

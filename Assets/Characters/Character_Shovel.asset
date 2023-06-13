@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Character_Shovel
   m_EditorClassIdentifier: 
   id: 3
-  displayName: Showel
+  displayName: Shovel
   icon: {fileID: 21300000, guid: 4ab715fe37d7f414b90d32f587ed94a4, type: 3}
+  introPrefab: {fileID: 1043672782662442007, guid: 199df933659070049a76e99f7fd6e6c6, type: 3}

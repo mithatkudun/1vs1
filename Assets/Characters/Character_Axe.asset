@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 2
   displayName: Axe
   icon: {fileID: 21300000, guid: fcd9171208c2e784a9ba6e6164dc08b3, type: 3}
+  introPrefab: {fileID: 6737300165636985364, guid: bcc398d95c8c157458ff47c954eb594b, type: 3}

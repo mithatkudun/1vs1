@@ -16,12 +16,15 @@ public struct CharacterSelectState : INetworkSerializable, IEquatable<CharacterS
         CharacterId = characterId;
         IsLockedIn = isLockedIn;
     }
+
+
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         serializer.SerializeValue(ref ClientId);
         serializer.SerializeValue(ref CharacterId);
         serializer.SerializeValue(ref IsLockedIn);
     }
+
 
     public bool Equals(CharacterSelectState other)
     {
