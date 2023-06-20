@@ -16,3 +16,4 @@ MonoBehaviour:
   displayName: "P\u0131ckaxe"
   icon: {fileID: 21300000, guid: 3d40f02cb7635fd40893ec06b3c88975, type: 3}
   introPrefab: {fileID: 3202687065944735180, guid: 2f07a8d2bd399b14c99ba9cd7dbed69a, type: 3}
+  gameplayPrefab: {fileID: -8792775991358908424, guid: d393868f2b023c641a5dcff168299f9d, type: 3}

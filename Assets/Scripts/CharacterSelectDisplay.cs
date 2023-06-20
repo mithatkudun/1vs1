@@ -22,6 +22,8 @@ public class CharacterSelectDisplay : NetworkBehaviour
 
     [SerializeField] private Transform introSpawnPoint;
 
+    [SerializeField] private TMP_Text joinCodeText;
+
     [SerializeField] private Button lockInbutton;
 
     private GameObject introInstance;
@@ -60,6 +62,11 @@ public class CharacterSelectDisplay : NetworkBehaviour
             {
                 HandleClientConnected(client.ClientId);
             }
+        }
+
+        if(IsHost)
+        {
+            joinCodeText.text = HostManager.Instance.JoinCode;
         }
     }
 
@@ -162,6 +169,18 @@ public class CharacterSelectDisplay : NetworkBehaviour
                 true
             );
 
+        }
+
+        foreach ( var player in players)
+        {
+            if(!player.IsLockedIn) { return; }
+        }
+
+        foreach (var player in players)
+        {
+            HostManager.Instance.SetCharacter(player.ClientId, player.CharacterId);
+
+            HostManager.Instance.StartGame();
         }
     }
 

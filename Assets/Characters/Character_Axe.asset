@@ -16,3 +16,4 @@ MonoBehaviour:
   displayName: Axe
   icon: {fileID: 21300000, guid: fcd9171208c2e784a9ba6e6164dc08b3, type: 3}
   introPrefab: {fileID: 6737300165636985364, guid: bcc398d95c8c157458ff47c954eb594b, type: 3}
+  gameplayPrefab: {fileID: 3541950753880062072, guid: cf68abdbe1828554280a0e5f1741cc0d, type: 3}
