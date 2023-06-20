@@ -389,7 +389,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6570739056089813000}
         m_TargetAssemblyTypeName: LobbiesList, Assembly-CSharp
         m_MethodName: RefreshList
         m_Mode: 1
