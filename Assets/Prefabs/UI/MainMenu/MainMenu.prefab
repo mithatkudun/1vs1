@@ -1300,6 +1300,7 @@ GameObject:
   - component: {fileID: 4443300954822307708}
   - component: {fileID: 4443300954822307705}
   - component: {fileID: 4443300954822307710}
+  - component: {fileID: 6570739056089813000}
   m_Layer: 5
   m_Name: LobbiesBackground
   m_TagString: Untagged
@@ -1367,6 +1368,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6570739056089813000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4443300954822307709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48905474ee5adc48a5365639dae486d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyItemParent: {fileID: 4443300954562216668}
+  lobbyItemPrefab: {fileID: 2621454767557284695, guid: ccf5405dff1a4c7448a6b5a2a7a0f969, type: 3}
 --- !u!1 &4443300955352772582
 GameObject:
   m_ObjectHideFlags: 0

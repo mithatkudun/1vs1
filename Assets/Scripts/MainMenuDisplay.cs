@@ -44,9 +44,9 @@ public class MainMenuDisplay : MonoBehaviour
     }
 
 
-    public void StartClient()
+    public async void StartClient()
     {
-        ClientManager.Instance.StartClient(joinCodeInputField.text);
+      await ClientManager.Instance.StartClient(joinCodeInputField.text);
     }
 
 

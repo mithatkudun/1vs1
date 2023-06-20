@@ -6,6 +6,7 @@ using Unity.Netcode.Transports.UTP;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using Unity.Networking.Transport.Relay;
+using System.Threading.Tasks;
 
 public class ClientManager : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class ClientManager : MonoBehaviour
         }
     }
 
-    public async void StartClient(string joinCode)
+    public async Task StartClient(string joinCode)
     {
         JoinAllocation allocation;
 
@@ -37,6 +38,7 @@ public class ClientManager : MonoBehaviour
             Debug.LogError("Relay get join code request failed");
             throw;
         }
+
 
         var relayServerData = new RelayServerData(allocation, "dlts");
 
