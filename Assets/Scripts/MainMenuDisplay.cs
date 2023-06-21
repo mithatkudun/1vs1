@@ -1,53 +1,101 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Netcode;
-using TMPro;
 using System;
-using Unity.Netcode.Transports.UTP;
-using Unity.Networking.Transport.Relay;
-using Unity.Services.Relay;
-using Unity.Services.Relay.Models;
-using Unity.Services.Core;
-using Unity.Services.Authentication;
+using TMPro;
+using UnityEngine;
 
 public class MainMenuDisplay : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject connectingPanel;
-    [SerializeField] private GameObject menuPanel;
     [SerializeField] private TMP_InputField joinCodeInputField;
+    [SerializeField] private TMP_Text findMatchButtonText;
+    [SerializeField] private TMP_Text queueTimerText;
+    [SerializeField] private TMP_Text queueStatusText;
 
+    private float timeInQueue;
+    private bool isMatchmaking;
+    private bool isCancelling;
+    private ClientGameManager gameManager;
 
-    private async void Start()
+    private void Start()
     {
-        try
-        {
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log($"Player Id: {AuthenticationService.Instance.PlayerId}");
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(e);
-            throw;
-        }
+        if (ClientSingleton.Instance == null) { return; }
 
-        connectingPanel.SetActive(false);
-        menuPanel.SetActive(true);
+        queueStatusText.text = string.Empty;
+        queueTimerText.text = string.Empty;
+
+        gameManager = ClientSingleton.Instance.Manager;
     }
 
-
-    public void StartHost()
+    private void Update()
     {
-        HostManager.Instance.StartHost();
+        if (isMatchmaking && !isCancelling)
+        {
+            timeInQueue += Time.deltaTime;
+            TimeSpan ts = TimeSpan.FromSeconds(timeInQueue);
+            queueTimerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+        }
+        else
+        {
+            queueTimerText.text = string.Empty;
+        }
     }
 
+    public async void FindMatchPressed()
+    {
+        if (isCancelling) { return; }
+
+        if (isMatchmaking)
+        {
+            queueStatusText.text = "Cancelling";
+            isCancelling = true;
+
+            await gameManager.CancelMatchmaking();
+
+            isCancelling = false;
+            isMatchmaking = false;
+            findMatchButtonText.text = "Find Match";
+            queueStatusText.text = string.Empty;
+            return;
+        }
+
+        _ = gameManager.MatchmakeAsync(OnMatchMade);
+
+        findMatchButtonText.text = "Cancel";
+        queueStatusText.text = "Searching...";
+        isMatchmaking = true;
+        timeInQueue = 0f;
+    }
+
+    private void OnMatchMade(MatchmakerPollingResult result)
+    {
+        switch (result)
+        {
+            case MatchmakerPollingResult.Success:
+                queueStatusText.text = "Connecting";
+                break;
+            case MatchmakerPollingResult.TicketCreationError:
+                queueStatusText.text = "TicketCreationError";
+                break;
+            case MatchmakerPollingResult.TicketCancellationError:
+                queueStatusText.text = "TicketCancellationError";
+                break;
+            case MatchmakerPollingResult.TicketRetrievalError:
+                queueStatusText.text = "TicketRetrievalError";
+                break;
+            case MatchmakerPollingResult.MatchAssignmentError:
+                queueStatusText.text = "MatchAssignmentError";
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(result), result, null);
+        }
+    }
+
+    public async void StartHost()
+    {
+        await HostSingleton.Instance.StartHostAsync();
+    }
 
     public async void StartClient()
     {
-      await ClientManager.Instance.StartClient(joinCodeInputField.text);
+        await ClientSingleton.Instance.Manager.BeginConnection(joinCodeInputField.text);
     }
-
-
 }
