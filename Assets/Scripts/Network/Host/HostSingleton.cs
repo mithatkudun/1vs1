@@ -61,7 +61,7 @@ public class HostSingleton : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e);
+            Debug.Log(e+"hata burda");
             return false;
         }
 
@@ -85,7 +85,7 @@ public class HostSingleton : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e);
+            Debug.Log(e+"hata burda2");
             return false;
         }
 
@@ -118,7 +118,7 @@ public class HostSingleton : MonoBehaviour
         }
         catch (LobbyServiceException e)
         {
-            Debug.Log(e);
+            Debug.Log(e+"hata burda3");
             return false;
         }
 

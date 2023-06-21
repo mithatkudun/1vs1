@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &229755762778369192
+--- !u!1 &6390178162075418597
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 229755762778369193}
-  - component: {fileID: 1299802154}
+  - component: {fileID: 9142129478103509349}
+  - component: {fileID: 8852048533949639899}
   m_Layer: 0
-  m_Name: ApplicationController
+  m_Name: ServerSingleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &229755762778369193
+--- !u!4 &9142129478103509349
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229755762778369192}
+  m_GameObject: {fileID: 6390178162075418597}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1299802154
+--- !u!114 &8852048533949639899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229755762778369192}
+  m_GameObject: {fileID: 6390178162075418597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa2ff46399688594bb3bf2fa6adefd6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 53d92cfa76aa0884ead0ca40a2e6ac05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverPrefab: {fileID: 8852048533949639899, guid: 7e6afe6140741a0419dda1c298ade471, type: 3}
-  clientPrefab: {fileID: 3093011816588916861, guid: d84fb45358277a5408451e12e99d505f, type: 3}
-  hostSingleton: {fileID: 8417251200916530160, guid: 77530744898639942bf29e92dcfd875b, type: 3}

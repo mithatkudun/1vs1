@@ -7,12 +7,11 @@ using UnityEngine;
 public class LobbiesList : MonoBehaviour
 {
     [SerializeField] private Transform lobbyItemParent;
-
     [SerializeField] private LobbyItem lobbyItemPrefab;
 
     private bool isRefreshing;
-
     private bool isJoining;
+
     private void OnEnable()
     {
         RefreshList();
@@ -21,6 +20,7 @@ public class LobbiesList : MonoBehaviour
     public async void RefreshList()
     {
         if (isRefreshing) { return; }
+
         isRefreshing = true;
 
         try
@@ -33,11 +33,11 @@ public class LobbiesList : MonoBehaviour
                 new QueryFilter(
                     field: QueryFilter.FieldOptions.AvailableSlots,
                     op: QueryFilter.OpOptions.GT,
-                    value:"0"),
+                    value: "0"),
                 new QueryFilter(
                     field: QueryFilter.FieldOptions.IsLocked,
                     op: QueryFilter.OpOptions.EQ,
-                    value:"0")
+                    value: "0")
             };
 
             var lobbies = await Lobbies.Instance.QueryLobbiesAsync(options);
@@ -53,7 +53,7 @@ public class LobbiesList : MonoBehaviour
                 lobbyInstance.Initialise(this, lobby);
             }
         }
-        catch(LobbyServiceException e)
+        catch (LobbyServiceException e)
         {
             Debug.Log(e);
             isRefreshing = false;
@@ -65,7 +65,7 @@ public class LobbiesList : MonoBehaviour
 
     public async void JoinAsync(Lobby lobby)
     {
-        if(isJoining) { return; }
+        if (isJoining) { return; }
 
         isJoining = true;
 
@@ -74,10 +74,9 @@ public class LobbiesList : MonoBehaviour
             var joiningLobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobby.Id);
             string joinCode = joiningLobby.Data["JoinCode"].Value;
 
-            await ClientManager.Instance.StartClient(joinCode);
-
+            await ClientSingleton.Instance.Manager.BeginConnection(joinCode);
         }
-        catch(LobbyServiceException e) 
+        catch (LobbyServiceException e)
         {
             Debug.Log(e);
             isJoining = false;

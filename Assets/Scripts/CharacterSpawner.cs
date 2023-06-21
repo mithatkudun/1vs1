@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Unity.Netcode;
+using UnityEngine;
 
 public class CharacterSpawner : NetworkBehaviour
 {
-
+    [Header("References")]
     [SerializeField] private CharacterDatabase characterDatabase;
+
     public override void OnNetworkSpawn()
     {
-        if(!IsServer) { return; }
-    
-        foreach(var client in HostManager.Instance.ClientData)
+        if (!IsServer) { return; }
+
+        foreach (var client in MatchplayNetworkServer.Instance.ClientData)
         {
             var character = characterDatabase.GetCharacterById(client.Value.characterId);
             if (character != null)
